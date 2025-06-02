@@ -6,31 +6,37 @@ A Model Context Protocol (MCP) server implementation for Gradle project manageme
 
 ### Tools
 
-1. **gradle_project_info** - Get comprehensive information about a Gradle project
+1. **gradle_project_context** - Change and manage the current project context
+   - Switch between different Gradle projects
+   - Validate project paths before switching
+   - Get current context information
+   - All other tools use the current context as default
+
+2. **gradle_project_info** - Get comprehensive information about a Gradle project
    - Project structure analysis
    - Build files detection
    - Source directories mapping
    - Gradle wrapper information
 
-2. **gradle_build** - Execute Gradle build commands and tasks
+3. **gradle_build** - Execute Gradle build commands and tasks
    - Run any Gradle task (build, clean, test, etc.)
    - Capture build output and errors
    - Support for custom arguments and timeouts
 
-3. **gradle_dependencies** - Analyze and manage project dependencies
+4. **gradle_dependencies** - Analyze and manage project dependencies
    - List all dependencies
    - Generate dependency trees
    - Dependency insight analysis
    - Check for outdated dependencies (with plugins)
    - Security vulnerability scanning (with plugins)
 
-4. **gradle_tasks** - List and analyze available Gradle tasks
+5. **gradle_tasks** - List and analyze available Gradle tasks
    - List tasks by group
    - Show all available tasks
    - Get help for specific tasks
    - Parse task output for structured information
 
-5. **gradle_analysis** - Perform various project analyses
+6. **gradle_analysis** - Perform various project analyses
    - Project overview and health checks
    - Plugin usage analysis
    - Build script complexity assessment
@@ -117,6 +123,38 @@ Add to your VS Code MCP configuration:
 
 ## Tool Usage Examples
 
+### Change Project Context
+```json
+{
+  "tool": "gradle_project_context",
+  "arguments": {
+    "action": "change",
+    "projectPath": "/path/to/new/gradle/project"
+  }
+}
+```
+
+### Get Current Context
+```json
+{
+  "tool": "gradle_project_context",
+  "arguments": {
+    "action": "get"
+  }
+}
+```
+
+### Validate Project Path
+```json
+{
+  "tool": "gradle_project_context",
+  "arguments": {
+    "action": "validate",
+    "projectPath": "/path/to/check"
+  }
+}
+```
+
 ### Analyze Project Information
 ```json
 {
@@ -170,6 +208,36 @@ Add to your VS Code MCP configuration:
   "arguments": {
     "projectPath": "/path/to/gradle/project",
     "analysisType": "overview"
+  }
+}
+```
+
+## Context-Aware Usage
+
+Once you set a project context, you can omit the `projectPath` from other tool calls:
+
+```json
+// Set context first
+{
+  "tool": "gradle_project_context",
+  "arguments": {
+    "action": "change",
+    "projectPath": "/path/to/my/project"
+  }
+}
+
+// Now other tools use the context automatically
+{
+  "tool": "gradle_build",
+  "arguments": {
+    "task": "test"
+  }
+}
+
+{
+  "tool": "gradle_tasks",
+  "arguments": {
+    "action": "list"
   }
 }
 ```

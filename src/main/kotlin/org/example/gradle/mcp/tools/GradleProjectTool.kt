@@ -21,14 +21,15 @@ class GradleProjectTool : GradleTool {
             "properties" to mapOf(
                 "projectPath" to mapOf(
                     "type" to "string",
-                    "description" to "Path to the Gradle project directory (defaults to current directory)"
+                    "description" to "Path to the Gradle project directory (defaults to current context)"
                 )
             )
         )
     }
 
     override fun execute(arguments: JsonNode?): String {
-        val projectPath = arguments?.get("projectPath")?.asText() ?: System.getProperty("user.dir")
+        val projectPath = arguments?.get("projectPath")?.asText() 
+            ?: GradleProjectContextTool.getCurrentProjectContext()
         
         return try {
             analyzeGradleProject(projectPath)

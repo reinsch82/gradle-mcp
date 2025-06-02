@@ -24,7 +24,7 @@ class GradleBuildTool : GradleTool {
             "properties" to mapOf(
                 "projectPath" to mapOf(
                     "type" to "string",
-                    "description" to "Path to the Gradle project directory"
+                    "description" to "Path to the Gradle project directory (defaults to current context)"
                 ),
                 "task" to mapOf(
                     "type" to "string", 
@@ -45,7 +45,8 @@ class GradleBuildTool : GradleTool {
     }
 
     override fun execute(arguments: JsonNode?): String {
-        val projectPath = arguments?.get("projectPath")?.asText() ?: System.getProperty("user.dir")
+        val projectPath = arguments?.get("projectPath")?.asText() 
+            ?: GradleProjectContextTool.getCurrentProjectContext()
         val task = arguments?.get("task")?.asText() ?: "build"
         val additionalArgs = arguments?.get("args")?.asText() ?: ""
         val timeout = arguments?.get("timeout")?.asLong() ?: 300000L

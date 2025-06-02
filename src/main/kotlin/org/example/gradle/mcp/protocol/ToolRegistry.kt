@@ -18,6 +18,7 @@ class ToolRegistry {
         registerTool("gradle_dependencies", GradleDependencyTool())
         registerTool("gradle_tasks", GradleTaskTool())
         registerTool("gradle_analysis", GradleAnalysisTool())
+        registerTool("gradle_project_context", GradleProjectContextTool())
     }
 
     private fun registerTool(name: String, tool: GradleTool) {
