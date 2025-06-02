@@ -1,0 +1,19 @@
+{
+  "name": "Gradle MCP Server",
+  "description": "Model Context Protocol server for Gradle project management",
+  "command": "java",
+  "args": [
+    "-jar",
+    "/absolute/path/to/your/gradle-mcp/build/libs/gradle-mcp-1.0-SNAPSHOT.jar"
+  ],
+  "cwd": "/path/to/your/gradle/project",
+  "env": {
+    "SPRING_PROFILES_ACTIVE": "mcp",
+    "LOGGING_LEVEL_ROOT": "WARN"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true
+  }
+}
