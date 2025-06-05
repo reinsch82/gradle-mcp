@@ -1,6 +1,7 @@
 package org.example.gradle.mcp.protocol
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.example.gradle.mcp.tools.GradleProjectContextTool
 import org.springframework.stereotype.Component
 import java.io.File
 
@@ -10,7 +11,7 @@ class ResourceRegistry {
     private val objectMapper = ObjectMapper()
 
     fun listResources(): List<Map<String, Any>> {
-        val projectPath = System.getProperty("user.dir")
+        val projectPath = GradleProjectContextTool.getCurrentProjectContext()
         val projectDir = File(projectPath)
         
         val resources = mutableListOf<Map<String, Any>>()
@@ -41,7 +42,7 @@ class ResourceRegistry {
     }
 
     fun readResource(uri: String): String {
-        val projectPath = System.getProperty("user.dir")
+        val projectPath = GradleProjectContextTool.getCurrentProjectContext()
         val projectDir = File(projectPath)
         
         return when {

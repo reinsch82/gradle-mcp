@@ -1,22 +1,12 @@
-server:
-  port: 8080
-
 spring:
   application:
     name: gradle-mcp-server
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics
-  endpoint:
-    health:
-      show-details: always
+  main:
+    web-application-type: none
 
 logging:
   level:
-    org.example.gradle.mcp: DEBUG
-    root: INFO
+    org.example.gradle.mcp: ERROR
+    root: ERROR
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: ""
