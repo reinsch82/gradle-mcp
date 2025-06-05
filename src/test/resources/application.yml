@@ -1,0 +1,16 @@
+spring:
+  main:
+    web-application-type: none
+    banner-mode: off
+  profiles:
+    active: test
+
+gradle:
+  shell:
+    enabled: false
+
+logging:
+  level:
+    org.example.gradle.mcp: DEBUG
+    org.springframework: WARN
+    root: ERROR

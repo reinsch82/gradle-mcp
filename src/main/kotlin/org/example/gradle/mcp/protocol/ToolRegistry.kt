@@ -3,10 +3,14 @@ package org.example.gradle.mcp.protocol
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.example.gradle.mcp.tools.*
+import org.example.gradle.mcp.config.GradleShellConfig
 import org.springframework.stereotype.Component
+import org.springframework.beans.factory.annotation.Autowired
 
 @Component
-class ToolRegistry {
+class ToolRegistry @Autowired constructor(
+    private val shellConfig: GradleShellConfig
+) {
 
     private val objectMapper = ObjectMapper()
     private val tools = mutableMapOf<String, GradleTool>()
@@ -19,6 +23,7 @@ class ToolRegistry {
         registerTool("gradle_tasks", GradleTaskTool())
         registerTool("gradle_analysis", GradleAnalysisTool())
         registerTool("gradle_project_context", GradleProjectContextTool())
+        registerTool("gradle_shell", GradleShellTool(shellConfig))
     }
 
     private fun registerTool(name: String, tool: GradleTool) {

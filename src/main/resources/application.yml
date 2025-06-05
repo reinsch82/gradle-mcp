@@ -1,12 +1,49 @@
-spring:
-  application:
-    name: gradle-mcp-server
-  main:
-    web-application-type: none
+# Gradle MCP Server Configuration
+gradle:
+  shell:
+    enabled: true
+    timeout-default: 30000      # 30 seconds default timeout
+    timeout-max: 600000         # 10 minutes maximum timeout
+    validation-mode: strict     # strict, permissive, or whitelist
+    working-directory-restriction: true
+    allowed-commands:
+      - "./gradlew"
+      - "gradlew"
+      - "gradle" 
+      - "git"
+      - "find"
+      - "ls"
+      - "cat"
+      - "grep"
+      - "echo"
+      - "which"
+      - "whereis"
+      - "pwd"
+      - "head"
+      - "tail"
+      - "wc"
+      - "sort"
+      - "uniq"
+    environment-passthrough:
+      - "JAVA_HOME"
+      - "GRADLE_OPTS"
+      - "GRADLE_USER_HOME"
+      - "PATH"
+      - "HOME"
+      - "USER"
+      - "LANG"
+      - "LC_ALL"
 
+# Logging configuration for MCP server
 logging:
   level:
-    org.example.gradle.mcp: ERROR
-    root: ERROR
+    org.example.gradle.mcp: INFO
+    org.apache.commons.exec: WARN
   pattern:
-    console: ""
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Spring Boot configuration
+spring:
+  main:
+    banner-mode: off
+    log-startup-info: false

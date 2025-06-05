@@ -10,22 +10,17 @@ import org.springframework.test.context.TestPropertySource
 )
 @TestPropertySource(
     properties = [
-        "gradle.shell.enabled=false",
         "spring.main.web-application-type=none",
+        "gradle.shell.enabled=false",
         "spring.ai.mcp.server.transports.stdio.enabled=false",
         "spring.ai.mcp.server.transports.sse.enabled=false"
     ]
 )
-class GradleMcpServerApplicationTest {
+class GradleMcpServerApplicationTestAlternative {
 
     @Test
-    fun contextLoads() {
-        // Test that the Spring context loads successfully
-        // This test verifies:
-        // 1. Spring Boot application context can start
-        // 2. All beans can be created without conflicts
-        // 3. Configuration properties are properly bound
-        // 4. No web server starts (webEnvironment = NONE)
-        // 5. Shell tool is disabled for testing
+    fun contextLoadsWithTestProperties() {
+        // Test that the Spring context loads successfully with test properties
+        // This approach uses configuration properties instead of mocking
     }
 }

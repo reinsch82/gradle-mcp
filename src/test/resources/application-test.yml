@@ -1,0 +1,40 @@
+spring:
+  main:
+    web-application-type: none
+    banner-mode: off
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+      - org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration
+      - org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration
+  ai:
+    mcp:
+      server:
+        transports:
+          stdio:
+            enabled: false
+          sse:
+            enabled: false
+
+gradle:
+  shell:
+    enabled: false
+    validation-mode: strict
+    timeout-default: 5000
+    timeout-max: 10000
+    working-directory-restriction: true
+    allowed-commands: 
+      - echo
+      - pwd
+    environment-passthrough:
+      - PATH
+      - HOME
+      - USER
+
+logging:
+  level:
+    org.example.gradle.mcp: DEBUG
+    org.springframework: WARN
+    org.springframework.boot: WARN
+    org.springframework.context: WARN
+    root: ERROR

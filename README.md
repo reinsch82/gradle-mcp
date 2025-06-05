@@ -42,6 +42,13 @@ A Model Context Protocol (MCP) server implementation for Gradle project manageme
    - Build script complexity assessment
    - Performance optimization suggestions
 
+7. **gradle_shell** - 🆕 Execute shell commands in project context
+   - Run any shell command with safety validation
+   - Flexible command execution with timeout control
+   - Environment variable management
+   - Working directory control within project boundaries
+   - Configurable security modes (strict/permissive/whitelist)
+
 ### Resources
 
 The server exposes various Gradle project resources:
@@ -201,13 +208,37 @@ Add to your VS Code MCP configuration:
 }
 ```
 
-### Project Analysis
+### Execute Shell Commands (New!)
 ```json
 {
-  "tool": "gradle_analysis",
+  "tool": "gradle_shell",
   "arguments": {
-    "projectPath": "/path/to/gradle/project",
-    "analysisType": "overview"
+    "command": "./gradlew test --tests '*CheckstylePluginClasspathIntegrationTest*' --info",
+    "timeout": 300000
+  }
+}
+```
+
+### Advanced Shell Usage
+```json
+{
+  "tool": "gradle_shell",
+  "arguments": {
+    "command": "find . -name '*.gradle*' | head -10",
+    "workingDirectory": "platforms",
+    "environment": {
+      "CUSTOM_VAR": "value"
+    }
+  }
+}
+```
+
+### Git Integration
+```json
+{
+  "tool": "gradle_shell",
+  "arguments": {
+    "command": "git log --oneline -5"
   }
 }
 ```
